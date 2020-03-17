@@ -1,36 +1,54 @@
-class Tree:
-    def __init__(self):
-        self.root = None
-        self.left = None
-        self.right = None
-
-    def addNode(self, node):
-        if self.root == None:
-            self.root = node
-        else:
-            if node.value < self.root.value:
-                if self.left == None:
-                    self.left = node
-                else:
-                    self.left = self.addNode(node)
-            else:
-                if self.right == None:
-                    self.right = node
-                else:
-                    self.right = self.addNode(node)
-    
-        print("New node: ")
-        print(self.root)
-
 class Node:
     def __init__(self, value):
         self.value = value
         self.left = None
         self.right = None
 
-# Initialization of the Binary Tree
-binary_tree = Tree()
+    def insert(self, value):
+        if value < self.value:
+            if self.left == None:
+                self.left = Node(value)
+            else:
+                self.left.insert(value)
+        else:
+            if self.right == None:
+                self.right = Node(value)
+            else:
+                self.right.insert(value)
+    
+    def printSelf(self):
+        if self.left == None:
+            print(self.value)
+        else:
+            self.left.printSelf()
+            print(self.value)
 
-binary_tree.addNode(Node(4))
-binary_tree.addNode(Node(5))
-binary_tree.addNode(Node(3))
+        if self.right != None:
+            self.right.printSelf()
+        else:
+            pass
+
+class BinaryTree:
+    def __init__(self, value: int):
+        self.root = Node(value)
+
+    def insert(self, value):
+        self.root.insert(value)
+
+    def tranverse(self):
+        self.root.printSelf()
+
+# Initialization of the Binary Tree
+binary_tree = BinaryTree(5)
+
+# Test random values
+binary_tree.insert(7)
+binary_tree.insert(8)
+binary_tree.insert(2)
+binary_tree.insert(3)
+binary_tree.insert(10)
+binary_tree.insert(1)
+binary_tree.insert(0)
+
+# Tranverse tree
+binary_tree.tranverse()
