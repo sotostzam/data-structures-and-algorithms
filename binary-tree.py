@@ -18,14 +18,15 @@ class Node:
             else:
                 self.right.insert(value)
     
-    def tranverse(self):
+    def tranverse(self, order = ''):
         if self.left == None:
-            print(self.value)
+            order += str(self.value) + ", "
         else:
-            self.left.tranverse()
-            print(self.value)
+            order += self.left.tranverse()
+            order += str(self.value) + ", "
         if self.right != None:
-            self.right.tranverse()
+            order += self.right.tranverse()
+        return order
 
 class BinaryTree:
     def __init__(self):
@@ -38,7 +39,10 @@ class BinaryTree:
             self.root.insert(value)
 
     def tranverse(self):
-        self.root.tranverse()
+        print("Tranverse tree using DFS (Depth-first search):")
+        print("Pre-order  (NLR): Work in progress...")
+        print("In-order   (LNR): " + self.root.tranverse()[0: -2])
+        print("Post-order (LRN): Work in progress...")
 
     def structure(self, bfsList = [], layer = 0):
         if layer == 0:
@@ -81,13 +85,12 @@ tempString = 'Random numbers inserted into tree: \n'
 for i in range(0, 10):
     num = random.randint(0, 100)
     binary_tree.insert(num)
-    if i != 4:
+    if i != 9:
         tempString += str(num) + ', '
     else:
         tempString += str(num)
 print(tempString + "\n")
 
-print("Tranverse tree using DFS (Depth-first search):\nIn-order (LNR):")
 binary_tree.tranverse()
 
 print("\nTree structure using BFS (Breadth-first search):")
