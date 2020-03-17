@@ -1,3 +1,5 @@
+import random 
+
 class Node:
     def __init__(self, value):
         self.value = value
@@ -16,39 +18,77 @@ class Node:
             else:
                 self.right.insert(value)
     
-    def printSelf(self):
+    def tranverse(self):
         if self.left == None:
             print(self.value)
         else:
-            self.left.printSelf()
+            self.left.tranverse()
             print(self.value)
-
         if self.right != None:
-            self.right.printSelf()
-        else:
-            pass
+            self.right.tranverse()
 
 class BinaryTree:
-    def __init__(self, value: int):
-        self.root = Node(value)
+    def __init__(self):
+        self.root = None
 
-    def insert(self, value):
-        self.root.insert(value)
+    def insert(self, value: int):
+        if self.root == None:
+            self.root = Node(value)
+        else:
+            self.root.insert(value)
 
     def tranverse(self):
-        self.root.printSelf()
+        self.root.tranverse()
+
+    def structure(self, bfsList = [], layer = 0):
+        if layer == 0:
+            if self.root == None:
+                print("Tree is empty.")
+                return 0
+            else:
+                bfsList.append(self.root)
+
+        nodeList = len(bfsList)
+        tempString = ''
+        for i in range(0, nodeList):
+            if bfsList[0].left == None and bfsList[0].right == None:
+                if i == nodeList-1:
+                    tempString += str(bfsList[0].value)
+                else:
+                    tempString += str(bfsList[0].value) + ", "
+            else:
+                if bfsList[0].left != None:
+                    bfsList.append(bfsList[0].left)
+                if bfsList[0].right != None:
+                    bfsList.append(bfsList[0].right)
+
+                if i == nodeList-1:
+                    tempString += str(bfsList[0].value)
+                else:
+                    tempString += str(bfsList[0].value) + ", "
+            bfsList.pop(0)
+
+        print("Layer " + str(layer) + ": " + tempString)
+        layer += 1
+        if len(bfsList) != 0:
+            self.structure(bfsList, layer)
 
 # Initialization of the Binary Tree
-binary_tree = BinaryTree(5)
+binary_tree = BinaryTree()
 
 # Test random values
-binary_tree.insert(7)
-binary_tree.insert(8)
-binary_tree.insert(2)
-binary_tree.insert(3)
-binary_tree.insert(10)
-binary_tree.insert(1)
-binary_tree.insert(0)
+tempString = 'Random numbers inserted into tree: \n'
+for i in range(0, 10):
+    num = random.randint(0, 100)
+    binary_tree.insert(num)
+    if i != 4:
+        tempString += str(num) + ', '
+    else:
+        tempString += str(num)
+print(tempString + "\n")
 
-# Tranverse tree
+print("Tranverse tree using DFS (Depth-first search):\nIn-order (LNR):")
 binary_tree.tranverse()
+
+print("\nTree structure using BFS (Breadth-first search):")
+binary_tree.structure()
