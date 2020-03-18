@@ -70,28 +70,52 @@ class BinaryTree:
 
         nodeList = len(bfsList)
         tempString = ''
+
+        # Check if none only
+        flag = True
         for i in range(0, nodeList):
-            if bfsList[0].left == None and bfsList[0].right == None:
-                if i == nodeList-1:
-                    tempString += str(bfsList[0].value)
+            if bfsList[i] != None:
+                flag = False
+        if flag == False :
+            for i in range(0, nodeList):
+                if bfsList[0] == None:
+                    if i == nodeList-1:
+                        tempString += "-"
+                    else:
+                        tempString += "-, "
+                    bfsList.append(None)
+                    bfsList.append(None)
+                elif bfsList[0].left != None or bfsList[0].right != None:
+                    if bfsList[0].left != None:
+                        bfsList.append(bfsList[0].left)
+                    else:
+                        bfsList.append(None)
+                    if bfsList[0].right != None:
+                        bfsList.append(bfsList[0].right)
+                    else:
+                        bfsList.append(None)
+                    if i == nodeList-1:
+                        tempString += str(bfsList[0].value)
+                    else:
+                        tempString += str(bfsList[0].value) + ", "
                 else:
-                    tempString += str(bfsList[0].value) + ", "
+                    if i == nodeList-1:
+                        tempString += str(bfsList[0].value)
+                        bfsList.append(None)
+                        bfsList.append(None)
+                    else:
+                        tempString += str(bfsList[0].value) + ", "
+                        bfsList.append(None)
+                        bfsList.append(None)
+                bfsList.pop(0)
+
+            if layer == 0:
+                print("Root   : " + tempString)
             else:
-                if bfsList[0].left != None:
-                    bfsList.append(bfsList[0].left)
-                if bfsList[0].right != None:
-                    bfsList.append(bfsList[0].right)
-
-                if i == nodeList-1:
-                    tempString += str(bfsList[0].value)
-                else:
-                    tempString += str(bfsList[0].value) + ", "
-            bfsList.pop(0)
-
-        print("Layer " + str(layer) + ": " + tempString)
-        layer += 1
-        if len(bfsList) != 0:
-            self.structure(bfsList, layer)
+                print("Layer " + str(layer) + ": " + tempString)    
+            layer += 1
+            if len(bfsList) != 0:
+                self.structure(bfsList, layer)
 
 # Initialization of the Binary Tree
 binary_tree = BinaryTree()
