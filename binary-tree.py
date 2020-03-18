@@ -1,3 +1,4 @@
+import os
 import random 
 
 class Node:
@@ -17,6 +18,12 @@ class Node:
                 self.right = Node(value)
             else:
                 self.right.insert(value)
+
+    def search(self, value):
+        pass
+        # if self.value != value:
+        #     if self.left != value:
+        #         pass
 
     def tranverseNLR(self, order = ''):
         order += str(self.value) + ", "
@@ -48,11 +55,27 @@ class BinaryTree:
     def __init__(self):
         self.root = None
 
+    def initialize(self):
+        if self.root != None:
+            self.root == None
+        tempString = 'Random numbers inserted into tree: \n'
+        for i in range(0, 10):
+            num = random.randint(0, 100)
+            self.insert(num)
+            if i != 9:
+                tempString += str(num) + ', '
+            else:
+                tempString += str(num)
+        print(tempString + "\n")
+
     def insert(self, value: int):
         if self.root == None:
             self.root = Node(value)
         else:
             self.root.insert(value)
+
+    def search(self, value):
+        self.root.search(value)
 
     def tranverse(self):
         print("Tranverse tree using DFS (Depth-first search):")
@@ -117,21 +140,37 @@ class BinaryTree:
             if len(bfsList) != 0:
                 self.structure(bfsList, layer)
 
-# Initialization of the Binary Tree
+def showMenu():
+    while True:
+        try:
+            print("Please enter your choice:\n" +
+                "1. Search for a value in the Binary Search Tree (BST)\n" +
+                "2. Tranverse BST using depth-first search (DFS)\n" +
+                "3. Show BST structure using breadth-first search (BFS)\n" +
+                "0. Quit\n")
+            selection = int(input("Your selection: "))
+            os.system('cls' if os.name == 'nt' else 'clear')
+            if selection == 0:
+                quit()
+            if selection == 1:
+                print("Not yet implemented!")
+                # selection = int(input("Value: "))
+                # binary_tree.search(selection)
+                # print()
+            elif selection == 2:
+                binary_tree.tranverse()
+                print()
+            elif selection == 3:
+                print("\nTree structure using BFS (Breadth-first search):")
+                binary_tree.structure()
+                print()
+            else: 
+                raise ValueError
+        except ValueError:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("Wrong input or tree is not populated.\n")
+            pass
+
 binary_tree = BinaryTree()
-
-# Test random values
-tempString = 'Random numbers inserted into tree: \n'
-for i in range(0, 10):
-    num = random.randint(0, 100)
-    binary_tree.insert(num)
-    if i != 9:
-        tempString += str(num) + ', '
-    else:
-        tempString += str(num)
-print(tempString + "\n")
-
-binary_tree.tranverse()
-
-print("\nTree structure using BFS (Breadth-first search):")
-binary_tree.structure()
+binary_tree.initialize()
+showMenu()
