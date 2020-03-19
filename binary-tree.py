@@ -5,8 +5,8 @@ class Node:
         self.right = None
 
 class BinaryTree:
-    def __init__(self, value):
-        self.root = Node(value)
+    def __init__(self):
+        self.root = None
 
     # Pre-order tranversal
     def tranverseNLR(self, node, order = ''):
@@ -112,12 +112,13 @@ if __name__ == "__main__":
 #      /     \    /     \
 #     C       D  E       F
 
-    binary_tree = BinaryTree("Z")
-    binary_tree.root.left = Node("A")
-    binary_tree.root.right = Node("B")
-    binary_tree.root.left.left = Node("C")
-    binary_tree.root.left.right = Node("D")
-    binary_tree.root.right.left = Node("E")
+    binary_tree                  = BinaryTree()
+    binary_tree.root             = Node("Z")
+    binary_tree.root.left        = Node("A")
+    binary_tree.root.right       = Node("B")
+    binary_tree.root.left.left   = Node("C")
+    binary_tree.root.left.right  = Node("D")
+    binary_tree.root.right.left  = Node("E")
     binary_tree.root.right.right = Node("F")
     
     binary_tree.tranverse()
