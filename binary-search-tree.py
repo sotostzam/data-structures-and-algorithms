@@ -2,25 +2,6 @@ import os
 import random
 binary_tree = __import__("binary-tree")
 
-class Node:
-    def __init__(self, value):
-        self.value = value
-        self.left = None
-        self.right = None
-
-    # Function to add a value into the node recursively
-    def insert(self, value):
-        if value < self.value:
-            if self.left == None:
-                self.left = Node(value)
-            else:
-                self.left.insert(value)
-        else:
-            if self.right == None:
-                self.right = Node(value)
-            else:
-                self.right.insert(value)
-
 class BinarySearchTree(binary_tree.BinaryTree):
     def __init__(self):
         self.root = None
@@ -28,9 +9,22 @@ class BinarySearchTree(binary_tree.BinaryTree):
     # Wrapper function to add a value into the BST
     def insert(self, value: int):
         if self.root == None:
-            self.root = Node(value)
+            self.root = binary_tree.Node(value)
         else:
-            self.root.insert(value)
+            self._insert(value, self.root)
+
+    # Function to add a value into the node recursively
+    def _insert(self, value: int, node):
+        if value < node.value:
+            if node.left == None:
+                node.left = binary_tree.Node(value)
+            else:
+                self._insert(value, node.left)
+        else:
+            if node.right == None:
+                node.right = binary_tree.Node(value)
+            else:
+                self._insert(value, node.right)
 
     # Function to search for a value into the BST
     def search(self, value):
