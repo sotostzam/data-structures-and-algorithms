@@ -150,6 +150,8 @@ class BinaryTree:
             layer += 1
             if len(bfsList) != 0:
                 self.structure(bfsList, layer)
+        else:
+            bfsList.clear()
 
 def showMenu():
     while True:
@@ -178,7 +180,7 @@ def showMenu():
                 raise ValueError
         except ValueError:
             os.system('cls' if os.name == 'nt' else 'clear')
-            print("Wrong input or tree is not populated.\n")
+            print("Wrong input.\n")
             pass
 
 binary_tree = BinaryTree()
