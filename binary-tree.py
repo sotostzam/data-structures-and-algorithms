@@ -34,11 +34,30 @@ class BinaryTree:
         order += str(node.value) + ", "
         return order
 
+    def tranverse_level_order(self, node):
+        bfsList = []
+        bfsList.append(node)
+        order = ''
+        while len(bfsList) != 0:
+            if bfsList[0].left == None and bfsList[0].right == None:
+                order += str(bfsList[0].value) + ", "
+                bfsList.pop(0)
+            else:
+                if bfsList[0].left != None:
+                    bfsList.append(bfsList[0].left)
+                if bfsList[0].right != None:
+                    bfsList.append(bfsList[0].right)
+                order += str(bfsList[0].value) + ", "
+                bfsList.pop(0)
+        return order
+
     def tranverse(self):
         print("Tranverse tree using DFS (Depth-first search):")
         print("Pre-order  (Node -> Left -> Right): " + self.tranverseNLR(self.root)[0: -2])
         print("In-order   (Left -> Node -> Right): " + self.tranverseLNR(self.root)[0: -2])
         print("Post-order (Left -> Right -> Node): " + self.tranverseLRN(self.root)[0: -2] + "\n")
+        print("Tranverse tree using BFS (Breadth-first search):")
+        print("Level-order: " + self.tranverse_level_order(self.root)[0: -2])
 
 if __name__ == "__main__":
 
