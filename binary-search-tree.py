@@ -19,12 +19,6 @@ class Node:
             else:
                 self.right.insert(value)
 
-    def search(self, value):
-        pass
-        # if self.value != value:
-        #     if self.left != value:
-        #         pass
-
     def tranverseNLR(self, order = ''):
         order += str(self.value) + ", "
         if self.left != None:
@@ -75,7 +69,24 @@ class BinaryTree:
             self.root.insert(value)
 
     def search(self, value):
-        self.root.search(value)
+        current_node = self.root
+        iteration = 0
+        while True:
+            output = str(iteration) + ". Check Node with value " + str(current_node.value) + "."
+            if current_node.value != value:
+                if current_node.left == None and current_node.right == None:
+                    print(str(iteration) + ". This Node is a leaf of the tree. Value can not be found.")
+                    break
+                elif value < current_node.value:
+                    print(output + " Value is less than Node's value. Move and search the left Node.")
+                    current_node = current_node.left
+                else:
+                    print(output + " Value is greater than Node's value. Move and search the right node.")
+                    current_node = current_node.right
+            else:
+                print(output + " Value found!")
+                break
+            iteration += 1
 
     def tranverse(self):
         print("Tranverse tree using DFS (Depth-first search):")
@@ -149,14 +160,13 @@ def showMenu():
                 "3. Show BST structure using breadth-first search (BFS)\n" +
                 "0. Quit\n")
             selection = int(input("Your selection: "))
-            os.system('cls' if os.name == 'nt' else 'clear')
+            print()
             if selection == 0:
                 quit()
             if selection == 1:
-                print("Not yet implemented!")
-                # selection = int(input("Value: "))
-                # binary_tree.search(selection)
-                # print()
+                selection = int(input("Value to search for: "))
+                binary_tree.search(selection)
+                print()
             elif selection == 2:
                 binary_tree.tranverse()
                 print()
